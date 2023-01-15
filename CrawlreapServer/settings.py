@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'users',
     'django_celery_beat',
     'django_celery_results',
-    'emailparser'
+    'emailparser',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -51,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'CrawlreapServer.urls'
@@ -93,6 +95,12 @@ WSGI_APPLICATION = 'CrawlreapServer.wsgi.application'
 #     }
 # }
 
+CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://0.0.0.0:8000"
+]
 
 DATABASES = {
     'default': {

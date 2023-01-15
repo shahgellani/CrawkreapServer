@@ -32,7 +32,6 @@ class LoginView(APIView):
         :param request:
         :return: Tokens , User, Message
         """
-        ReadEmail.read_email()
         if "email" not in request.data or "password" not in request.data:
             return Response(
                 {"msg": "Credentials missing"}, status=status.HTTP_400_BAD_REQUEST
