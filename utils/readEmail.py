@@ -12,13 +12,12 @@ from emailparser.serializers import EmailSerializer
 
 
 class ReadEmail():
-    ORG_EMAIL = "@gmail.com"
-    FROM_EMAIL = "shahrukh.ali1496" + ORG_EMAIL
-    # FROM_EMAIL = "maintenance@ta-trading.co.uk" #todo
-    FROM_PWD = "hfouequsmtgukqpu"
-    # FROM_PWD = "T3st1c@ll!!" #todo
-    # SMTP_SERVER = "imap.secureserver.net"
-    SMTP_SERVER = 'imap.gmail.com'
+    # ORG_EMAIL = "@gmail.com"
+
+    FROM_EMAIL = "maintenance@ta-trading.co.uk" #todo
+    FROM_PWD = "T3st1c@ll!!" #todo
+    SMTP_SERVER = "imap.secureserver.net"
+    # SMTP_SERVER = 'imap.gmail.com'
     SMTP_PORT = 993
     key_words = ['ISSUES:', 'Not Working', 'Reported']
     data = ""
