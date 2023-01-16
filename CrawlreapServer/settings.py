@@ -97,11 +97,21 @@ WSGI_APPLICATION = 'CrawlreapServer.wsgi.application'
 
 CORS_ORIGIN_ALLOW_ALL = True
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    "http://0.0.0.0:8000"
-]
-
+# ALLOWED_HOSTS = [
+#     "192.168.25.157",
+#     "192.168.22.101",
+#     "192.168.25.106",
+#     "127.0.0.1",
+#     "0.0.0.0",
+#     "192.168.25.250",
+# ]
+#
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:3000",
+#     "http://192.168.25.101:3000",
+#     "http://0.0.0.0:8000"
+# ]
+CORS_ORIGIN_WHITELIST = ("http://localhost:8000", "http://192.168.25.101:3000")
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',

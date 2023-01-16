@@ -16,6 +16,7 @@ from .usermanager import UserManager
 class User(AbstractBaseUser):
     username = models.CharField(blank=True, null=True , max_length=25)
     email = models.EmailField(_('email address'), unique=True)
+    is_staff = models.BooleanField(default=True)
     is_active = models.BooleanField(default=True)
     is_deleted = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -42,7 +43,6 @@ class UserProfile(models.Model):
     last_name = models.CharField(max_length=50)
     city = models.CharField(max_length=50)
     zip = models.CharField(max_length=5)
-
     date_joined = models.DateTimeField(auto_now_add=True)
     # photo = models.ImageField(upload_to='uploads', blank=True)
 

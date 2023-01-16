@@ -1,16 +1,14 @@
+from django.contrib.auth import authenticate, login
 from django.shortcuts import render
 
 # Create your views here.
 
-from django.contrib.auth import authenticate, login
-
-
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from utils.readEmail import ReadEmail
-from .models import User
-from .serializers import UserSerializer
+
+from .models import User , UserProfile
+from .serializers import RegisterSerializer
 from .utils.token_manager import get_tokens_for_user
 
 
@@ -19,13 +17,14 @@ class UserViewSet(viewsets.ModelViewSet):
 
     """
     queryset = User.objects.all()
-    serializer_class = UserSerializer
 
 
 class LoginView(APIView):
     """
+    Login View
 
     """
+
     def post(self, request):
         """
 
@@ -42,7 +41,7 @@ class LoginView(APIView):
         if user is not None and user.is_active:
             login(request, user)
             auth_data = get_tokens_for_user(request.user)
-            data = {"auth_data" :auth_data , "user" : "" }
+            data = {"auth_data": auth_data, "user": ""}
             return Response(
                 {"msg": "Login Success", **auth_data}, status=status.HTTP_200_OK
             )
@@ -50,3 +49,33 @@ class LoginView(APIView):
             {"msg": "Invalid Credentials"}, status=status.HTTP_401_UNAUTHORIZED
         )
 
+
+class UserSignUp(APIView):
+    """
+    User signup view
+    """
+    authentication_classes = []
+    response_dict = {}
+
+    def post(self, request):
+        """
+        For creating new user
+        :param request:
+        :return:
+        """
+        try:
+            validated_data = RegisterSerializer(data=request.data)
+            if validated_data.is_valid():
+                RegisterSerializer.create(validated_data=validated_data)
+                self.response_dict["msg"] = validated_data.data
+                self.response_dict["response_status"] = True
+            else:
+                self.response_dict["msg"] = validated_data.errors
+                self.response_dict["response_status"] = True
+        except Exception as e:
+            self.response_dict["msg"] = str(e)
+            self.response_dict["response_status"] = False
+        finally:
+            return Response(
+                self.response_dict
+            )
